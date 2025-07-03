@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Inventario - Maestranza</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: #f5f6fa;
+    }
+    .navbar {
+      background: linear-gradient(90deg, #5e60ce, #6930c3);
+    }
+    .navbar-brand, .nav-link, .navbar-toggler-icon {
+      color: #fff !important;
+    }
+    .navbar-brand:hover, .nav-link:hover {
+      color: #dcdde1 !important;
+    }
+    .table thead {
+      background-color: #6930c3;
+      color: #fff;
+    }
+    .table tbody tr:hover {
+      background-color: #f0eaff;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top shadow">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="/"><i class="fas fa-tools me-2"></i>Maestranza</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="/vista_inventario">Inventario</a></li>
+        <li class="nav-item"><a class="nav-link" href="/nuevo_item">Nuevo Ítem</a></li>
+        <li class="nav-item"><a class="nav-link" href="/registrar_movimiento">Movimiento</a></li>
+        <li class="nav-item"><a class="nav-link" href="/alertas_reposicion">Alertas</a></li>
+        <li class="nav-item"><a class="nav-link" href="/historial_precios">Historial Precios</a></li>
+        <li class="nav-item"><a class="nav-link" href="/proveedor">Proveedores</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Contenido -->
+<div class="container" style="padding-top: 100px;">
+  <h2 class="mb-4 text-center fw-bold text-primary"><i class="fas fa-boxes me-2"></i>Inventario Actual</h2>
+  <div class="table-responsive shadow rounded">
+    <table class="table table-striped table-hover align-middle">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Ítem</th>
+          <th>Stock</th>
+          <th>Ubicación</th>
+          <th>Descripción</th>
+          <th>Categoría</th>
+          <th>Lote</th>
+          <th>Vencimiento</th>
+          <th>Etiquetas</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in inventario %}
+        <tr>
+          <td>{{ item.id }}</td>
+          <td>{{ item.item }}</td>
+          <td>{{ item.stock }}</td>
+          <td>{{ item.ubicacion }}</td>
+          <td>{{ item.descripcion }}</td>
+          <td>{{ item.categoria }}</td>
+          <td>{{ item.lote or '-' }}</td>
+          <td>{{ item.fecha_vencimiento or '-' }}</td>
+          <td>
+            {% if item.etiquetas %}
+              {{ item.etiquetas | join(', ') }}
+            {% else %}
+              -
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="text-center mt-4">
+    <a href="/" class="btn btn-outline-primary">
+      <i class="fas fa-home me-1"></i>Volver al Inicio
+    </a>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
